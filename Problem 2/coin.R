@@ -1,6 +1,4 @@
 library(binom)
-library(coda)
-library(MCMCpack)
 
 # Problem 2
 # A
