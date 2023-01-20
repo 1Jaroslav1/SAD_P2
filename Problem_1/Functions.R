@@ -62,3 +62,34 @@ prepare_plot <- function(euro, nonEuro) {
     geom_line(aes(y = NoEurozone, color="NoEuro", group = 1))
     )
 }
+
+draw_stacking_data <- function(no_euro_zone_data, euro_zone_data, title) {
+  merged_df <- merge(no_euro_zone_data, euro_zone_data, by = "Period")
+  colnames(merged_df)[2] <- "Euro zone"
+  colnames(merged_df)[3] <- "No euro zone"
+
+  data_frame <- pivot_longer(merged_df, -Period, names_to = "Country", values_to = "InflationMonthly")
+
+  ggplot(data_frame, aes(x = Period, y = InflationMonthly, group = Country, color = Country)) +
+    # scale_color_viridis(discrete = TRUE, option = "H") +
+    geom_line(aes(color = factor(Country)), size = 2) +
+    geom_point(shape = 21, color = "black", fill = "black", size = 1.5) +
+    scale_x_date(date_labels = "%Y-%m", date_minor_breaks = "1 month") +
+    guides(fill = guide_legend(title = NULL)) +
+    xlab("Date") +
+    ylab("Inflation [%]") +
+    ggtitle(title) +
+    theme_minimal() +
+    theme(
+      plot.title=element_text(size = 30, hjust=0.5, vjust=0.5, face='bold', margin = margin(20, 0, 20, 0)),
+      axis.title = element_text(size=20,face="bold"),
+      axis.title.x = element_text(margin = margin(20, 0, 20, 0)),
+      axis.title.y = element_text(margin = margin(0, 20, 0, 20)),
+      axis.text = element_text(
+        size=15,
+        face=3
+      ),
+      legend.text = element_text(size = 15),
+      legend.title = element_text(size = 20),
+    )
+}
