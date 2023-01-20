@@ -1,4 +1,5 @@
 source("./Problem_1/Functions.R")
+source("./Problem_1/InflationDataPreparing.R")
 
 mean_euro_zone_inflation_monthly <- prepare_inflation_data(euro_zone_inflation, c("2015-11-01", "2018-10-01"))
 mean_no_euro_zone_inflation_monthly <- prepare_inflation_data(no_euro_zone_inflation, c("2015-11-01", "2018-10-01"))
