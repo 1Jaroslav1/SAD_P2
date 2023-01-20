@@ -93,3 +93,26 @@ draw_stacking_data <- function(no_euro_zone_data, euro_zone_data, title) {
       legend.title = element_text(size = 20),
     )
 }
+
+draw_histogram <- function(df, title, column_name, mean, sd, color) {
+  cat(column_name, ": ", "mean - ", mean, ', standard deviation = ', sd, '\n')
+  ggplot(df) +
+    geom_histogram(binwidth = 0.1, aes(x = get(column_name), y = after_stat(density)), fill = paste(color, '1'), color = color) +
+    xlab("Monthly inflation delta") +
+    xlim(-1.5, 2.5) +
+    ylab("Density") +
+    ylim(0,2) +
+    theme_light() +
+    ggtitle(title) +
+    theme(
+      plot.title=element_text(size = 25, hjust=0.5, vjust=0.5, face='bold', margin = margin(20, 0, 20, 0)),
+      axis.title = element_text(size = 20),
+      axis.title.x = element_text(margin = margin(20, 0, 20, 0)),
+      axis.title.y = element_text(margin = margin(0, 20, 0, 20)),
+      axis.text = element_text(
+        size = 15,
+        face = 3
+      )
+    ) +
+    stat_function(fun = dnorm, args = list(mean = mean, sd = sd), col = 'black')
+}
