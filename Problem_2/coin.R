@@ -1,6 +1,6 @@
 library(binom)
 
-# Problem 2
+# Problem_2
 # A
 
 # 0 - reszka, 1 - orzeł
